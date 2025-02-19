@@ -1,1 +1,6 @@
 # PistachoStudiosLauncherWPF
+El launcher oficial para los juegos de Pistacho Studios
+# EL LAUNCHER NO FUNCIONARÁ SI EL SERVIDOR NO SE ENCUENTRA ACTIVO
+# POR ESTA RAZÓN, SI NO ERES UN JUGADOR QUE ESTÁ EN EL DISCORD
+# ENTRA AQUÍ O NO TENDRÁS ACCESO AL SERVIDOR (WHITELIST)
+# https://discord.gg/TAFcMFSXsm
