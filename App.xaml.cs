@@ -22,6 +22,7 @@ namespace PistachoStudiosLauncherWPF
         {
             base.OnStartup(e);
 
+            //jankiest code ever
 
             HttpClient httpclient = new();
             var streamtask = httpclient.GetAsync(serverlocation + "/launcher.json");
@@ -48,29 +49,33 @@ namespace PistachoStudiosLauncherWPF
                             FileStream localfs = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\" + "launcher.json", FileMode.OpenOrCreate);
                             string readtoendlocal = new StreamReader(localfs).ReadToEnd();
                             JsonRoot? localjson = JsonSerializer.Deserialize<JsonRoot>(readtoendlocal);
-                            if (localjson != json && localjson != null)
+                            if(localjson != null)
                             {
-                                localfs.SetLength(0);
-                                localfs.Flush();
-                                localfs.Write(Encoding.UTF8.GetBytes(readtoendlocal), 0, readtoendlocal.Length);
-                            }
-                            streamtask = httpclient.GetAsync(serverlocation + "/screenshots/screenshots.7z");
-                            streamtask.Wait();
-                            if (streamtask.Result.IsSuccessStatusCode)
-                            {
-                                FileStream ssfs = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\" + "screenshots.7z", FileMode.OpenOrCreate);
-                                ssfs.SetLength(0);
-                                ssfs.Flush();
-                                streamtask.Result.Content.ReadAsStream().CopyTo(ssfs);
-                                ssfs.Close();
-                                Process un7z = new();
-                                un7z.StartInfo.FileName = Path.GetDirectoryName(Environment.ProcessPath) + @"\7z\7zr.exe";
-                                un7z.StartInfo.Arguments = "x -y -o\"" + Path.GetDirectoryName(Environment.ProcessPath) + "\\media\\img\\\" " + Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\screenshots.7z";
-                                un7z.StartInfo.UseShellExecute = false;
-                                un7z.StartInfo.RedirectStandardOutput = true;
-                                un7z.Start();
-                                un7z.WaitForExit();
-                                //MessageBox.Show(un7z.StandardOutput.ReadToEnd());
+                                if (readtoend != readtoendlocal)
+                                {
+                                    localfs.SetLength(0);
+                                    localfs.Flush();
+                                    localfs.Write(Encoding.UTF8.GetBytes(readtoend), 0, readtoend.Length);
+
+                                    streamtask = httpclient.GetAsync(serverlocation + "/screenshots/screenshots.7z");
+                                    streamtask.Wait();
+                                    if (streamtask.Result.IsSuccessStatusCode)
+                                    {
+                                        FileStream ssfs = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\" + "screenshots.7z", FileMode.OpenOrCreate);
+                                        ssfs.SetLength(0);
+                                        ssfs.Flush();
+                                        streamtask.Result.Content.ReadAsStream().CopyTo(ssfs);
+                                        ssfs.Close();
+                                        Process un7z = new();
+                                        un7z.StartInfo.FileName = Path.GetDirectoryName(Environment.ProcessPath) + @"\7z\7zr.exe";
+                                        un7z.StartInfo.Arguments = "x -y -o\"" + Path.GetDirectoryName(Environment.ProcessPath) + "\\media\\img\\\" " + Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\screenshots.7z";
+                                        un7z.StartInfo.UseShellExecute = false;
+                                        un7z.StartInfo.RedirectStandardOutput = true;
+                                        un7z.Start();
+                                        un7z.WaitForExit();
+                                        MessageBox.Show(un7z.StandardOutput.ReadToEnd());
+                                    }
+                                }
                             }
                         }
                         else //if file does not exist, do not check for differences. just save
