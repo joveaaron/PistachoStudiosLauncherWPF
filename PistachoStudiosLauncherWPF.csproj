@@ -30,4 +30,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="7z\7zr.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

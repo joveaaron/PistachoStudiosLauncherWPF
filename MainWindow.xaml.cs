@@ -59,7 +59,6 @@ namespace PistachoStudiosLauncherWPF
                     totransitionimage = 0;
                 }
                 backimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[totransitionimage]), ImageFormat.Png);
-
             }
         }
 
@@ -81,7 +80,7 @@ namespace PistachoStudiosLauncherWPF
                         imagefilenames.Add(files[i]);
                     }
                 }
-                MessageBox.Show(files.Length.ToString());
+                //MessageBox.Show(imagefilenames.Length.ToString());
                 Utils.Shuffle(imagefilenames);
             }
             frntimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[0]), ImageFormat.Png);

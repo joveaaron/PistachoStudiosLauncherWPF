@@ -9,8 +9,8 @@ namespace PistachoStudiosLauncherWPF
     public class JsonRoot
     {
         public int ver { get; set; }
-
         public JsonGame? game { get; set; }
+        public int ssrevision { get; set; }
     }
     public class JsonGame
     {
