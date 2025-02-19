@@ -1,0 +1,23 @@
+﻿<Window x:Class="PistachoStudiosLauncherWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PistachoStudiosLauncherWPF"
+        mc:Ignorable="d"
+        Title="Pistacho Studios Launcher" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Image x:Name="backimage" VerticalAlignment="Center" Margin="0,0,0,0" Source="media\img\1.png" Stretch="UniformToFill"/>
+        <Image x:Name="frntimage" VerticalAlignment="Center" Margin="0,0,0,0" Source="media\img\0.png" Stretch="UniformToFill"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="26"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="1" HorizontalAlignment="Center" Height="27" Margin="0,0,0,0" Fill="#3FFFFFFF" VerticalAlignment="Bottom" Width="800"/>
+            <Label Grid.Row="1" x:Name="gamelabel" Content="Juego actual: " HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="Black"/>
+            <Image Grid.Row="0" Margin="10,10,439,0" VerticalAlignment="Top" Source="media\ui\0.png" StretchDirection="DownOnly"/>
+            <Button Grid.Row="0" HorizontalAlignment="Right" Content="Siguiente foto" Margin="0,10,10,0" Click="Button_Click" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+</Window>
