@@ -1,16 +1,8 @@
 ﻿using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.Versioning;
-using System.Text;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace PistachoStudiosLauncherWPF
@@ -21,6 +13,7 @@ namespace PistachoStudiosLauncherWPF
     public partial class MainWindow : Window
     {
         DispatcherTimer fadetimer = new(DispatcherPriority.Render);
+        DispatcherTimer nextphoto = new(DispatcherPriority.Render);
         List<string> imagefilenames = [];
         int totransitionimage = 0;
 
@@ -29,6 +22,8 @@ namespace PistachoStudiosLauncherWPF
             InitializeComponent();
             fadetimer.Interval = new(10000);
             fadetimer.Tick += fadeTimer_Tick;
+            nextphoto.Interval = new(0, 0, 20);
+            nextphoto.Tick += Nextphoto_Tick;
             App app = (App)Application.Current;
             if (app.jsondata != null && app.jsondata.game != null && app.jsondata.game.modloader != null && app.jsondata.game.server != null)
             {
@@ -39,6 +34,11 @@ namespace PistachoStudiosLauncherWPF
                     gamelabel.Content = "Juego actual: " + app.jsondata.game.fancyname;
                 }
             }
+        }
+
+        private void Nextphoto_Tick(object? sender, EventArgs e)
+        {
+            fadetimer.Start();
         }
 
         private void fadeTimer_Tick(object? sender, EventArgs e)
@@ -62,13 +62,16 @@ namespace PistachoStudiosLauncherWPF
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e) //photo button
         {
             fadetimer.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            bkgcyclecheckbox.IsChecked = true;
+            nextphoto.Start();
+            
             string? path = Path.GetDirectoryName(Environment.ProcessPath);
             if (path != null)
             {
@@ -86,6 +89,22 @@ namespace PistachoStudiosLauncherWPF
             frntimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[0]), ImageFormat.Png);
             totransitionimage = 1;
             backimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[1]), ImageFormat.Png);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) //config button
+        {
+            
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if(bkgcyclecheckbox.IsChecked == true)
+            {
+                nextphoto.Start();
+            } else
+            {
+                nextphoto.Stop();
+            }
         }
     }
     public static class Utils

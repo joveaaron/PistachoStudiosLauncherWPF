@@ -1,0 +1,14 @@
+﻿<Window x:Class="PistachoStudiosLauncherWPF.Config"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PistachoStudiosLauncherWPF"
+        mc:Ignorable="d"
+        Title="Configuración Inicial" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Height="24" Margin="10,0,0,0" VerticalAlignment="Top" Width="114"/>
+        <TextBox x:Name="usernametb" HorizontalAlignment="Left" Height="18" Margin="10,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+
+    </Grid>
+</Window>

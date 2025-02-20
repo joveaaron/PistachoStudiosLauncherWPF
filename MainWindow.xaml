@@ -17,7 +17,16 @@
             <Rectangle Grid.Row="1" HorizontalAlignment="Center" Height="27" Margin="0,0,0,0" Fill="#3FFFFFFF" VerticalAlignment="Bottom" Width="800"/>
             <Label Grid.Row="1" x:Name="gamelabel" Content="Juego actual: " HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="Black"/>
             <Image Grid.Row="0" Margin="10,10,439,0" VerticalAlignment="Top" Source="media\ui\0.png" StretchDirection="DownOnly"/>
-            <Button Grid.Row="0" HorizontalAlignment="Right" Content="Siguiente foto" Margin="0,10,10,0" Click="Button_Click" VerticalAlignment="Top"/>
+            <Button Grid.Row="0" HorizontalAlignment="Right" Height="48" Margin="0,10,10,0" VerticalAlignment="Top" Width="79" Click="Button_Click_1">
+                <TextBlock TextAlignment="Center">
+                    Configuración<LineBreak/>inicial
+                </TextBlock>
+            </Button>
+            <CheckBox x:Name="bkgcyclecheckbox" Grid.Row="0" HorizontalAlignment="Left" Height="34" Margin="711,63,0,0" VerticalAlignment="Top" Width="79" Foreground="White" Click="CheckBox_Checked">
+                <TextBlock TextWrapping="Wrap">
+                    Ciclar fondo
+                </TextBlock>
+            </CheckBox>
         </Grid>
     </Grid>
 </Window>

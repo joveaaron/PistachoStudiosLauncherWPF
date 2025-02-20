@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PistachoStudiosLauncherWPF
 {
-    public class JsonRoot
+    public class JsonLauncherRoot
     {
         public int ver { get; set; }
         public JsonGame? game { get; set; }
@@ -31,5 +32,9 @@ namespace PistachoStudiosLauncherWPF
     {
         public string? hostname { get; set; }
         public int gameport { get; set; }
+    }
+    public class JsonConfigRoot
+    {
+        public string? username { get; set; }
     }
 }
