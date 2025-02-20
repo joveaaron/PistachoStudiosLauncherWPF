@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Imaging;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -16,6 +17,8 @@ namespace PistachoStudiosLauncherWPF
         DispatcherTimer nextphoto = new(DispatcherPriority.Render);
         List<string> imagefilenames = [];
         int totransitionimage = 0;
+        string gamename = "";
+        JsonConfigRoot? jsonconfig = null;
 
         public MainWindow()
         {
@@ -27,11 +30,11 @@ namespace PistachoStudiosLauncherWPF
             App app = (App)Application.Current;
             if (app.jsondata != null && app.jsondata.game != null && app.jsondata.game.modloader != null && app.jsondata.game.server != null)
             {
-                if(app.jsondata.game.fancyname == null)
+                if(app.jsondata.game.fancyname == null && app.jsondata.game.codename != null)
                 {
-                    gamelabel.Content = "Juego actual: " + app.jsondata.game.codename;
-                } else {
-                    gamelabel.Content = "Juego actual: " + app.jsondata.game.fancyname;
+                    gamename = app.jsondata.game.codename;
+                } else if (app.jsondata.game.fancyname != null) {
+                    gamename = app.jsondata.game.fancyname;
                 }
             }
         }
@@ -89,11 +92,33 @@ namespace PistachoStudiosLauncherWPF
             frntimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[0]), ImageFormat.Png);
             totransitionimage = 1;
             backimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[1]), ImageFormat.Png);
+
+            var jsonconfigfs = new FileStream(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\config.json", FileMode.OpenOrCreate);
+            try
+            {
+                jsonconfig = JsonSerializer.Deserialize<JsonConfigRoot>(jsonconfigfs);
+                jsonconfigfs.Close();
+            }
+            catch (Exception)
+            {
+                jsonconfigfs.Close();
+                //MessageBox.Show("Error mientras se leía el archivo json/config.json." + Environment.NewLine + "Se reemplazaron los ajustes con los por defecto.", "Error de lectura", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (jsonconfig != null && jsonconfig.username != null)
+            {
+                updateLabelStatusBar(gamename, jsonconfig.username);
+            } else
+            {
+                MessageBox.Show("La configuración es invalida. Cámbiala ahora.", "Fallo en la configuración", MessageBoxButton.OK, MessageBoxImage.Error);
+                Config config = new();
+                config.ShowDialog();
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) //config button
         {
-            
+            Config config = new();
+            config.ShowDialog();
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -105,6 +130,10 @@ namespace PistachoStudiosLauncherWPF
             {
                 nextphoto.Stop();
             }
+        }
+        public void updateLabelStatusBar(string game, string username)
+        {
+            gamelabel.Content = "Juego actual: " + game + ". Nombre de usuario: " + username;
         }
     }
     public static class Utils

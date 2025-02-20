@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PistachoStudiosLauncherWPF"
         mc:Ignorable="d"
-        Title="Configuración Inicial" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Configuración Inicial" Height="92" Width="282" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
-        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Height="24" Margin="10,0,0,0" VerticalAlignment="Top" Width="114"/>
-        <TextBox x:Name="usernametb" HorizontalAlignment="Left" Height="18" Margin="10,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Height="24" Margin="10,0,0,16" VerticalAlignment="Bottom" Width="114"/>
+        <TextBox Grid.Row="0" x:Name="usernametb" HorizontalAlignment="Left" Height="18" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="149"/>
+        <Button Grid.Row="0" Content="Guardar" HorizontalAlignment="Right" Height="36" Margin="0,0,10,0" VerticalAlignment="Bottom" Width="85" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Diagnostics;
 using System.Text;
 using System.Net;
+using Microsoft.Win32.SafeHandles;
 
 namespace PistachoStudiosLauncherWPF
 {
@@ -24,8 +25,7 @@ namespace PistachoStudiosLauncherWPF
             //jankiest code ever
 
             HttpClient httpclient = new();
-            //httpclient.DefaultRequestHeaders.UserAgent.Clear();
-            //httpclient.DefaultRequestHeaders.UserAgent.ParseAdd("PistachoStudiosLauncherWPF/1.0");
+
             var streamtask = httpclient.GetAsync(serverlocation + "/launcher.json");
             streamtask.Wait();
             if (streamtask.Result.IsSuccessStatusCode)
@@ -54,30 +54,9 @@ namespace PistachoStudiosLauncherWPF
                             FileStream ssfs = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\" + json.game.uuid + ".7z", FileMode.OpenOrCreate);
                             ssfs.SetLength(0);
                             ssfs.Flush();
-                            //streamtask = httpclient.GetAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
+
                             var str23 = httpclient.GetStreamAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
-                            //streamtask.Wait();
-                            /*if (!streamtask.Result.IsSuccessStatusCode)
-                            {
-                                MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                df.Close();
-                                return;
-                            }
-                            if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                            {
-                                Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                            }
-                            else
-                            {
-                                if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                {
-                                    foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                    {
-                                        File.Delete(file);
-                                    }
-                                }
-                            }*/
+
                             str23.Result.CopyTo(ssfs);
                             ssfs.Flush();
                             ssfs.Close();
@@ -93,30 +72,9 @@ namespace PistachoStudiosLauncherWPF
                             FileStream ssfs2 = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\screenshots.7z", FileMode.OpenOrCreate);
                             ssfs2.SetLength(0);
                             ssfs2.Flush();
-                            //streamtask = httpclient.GetAsync(serverlocation + "/screenshots/screenshots.7z");
+
                             var str232 = httpclient.GetStreamAsync(serverlocation + "/screenshots/screenshots.7z");
-                            //streamtask.Wait();
-                            /*if (!streamtask.Result.IsSuccessStatusCode)
-                            {
-                                MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                df.Close();
-                                return;
-                            }
-                            if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                            {
-                                Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                            }
-                            else
-                            {
-                                if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                {
-                                    foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                    {
-                                        File.Delete(file);
-                                    }
-                                }
-                            }*/
+
                             str232.Result.CopyTo(ssfs2);
                             ssfs2.Flush();
                             ssfs2.Close();
@@ -128,7 +86,7 @@ namespace PistachoStudiosLauncherWPF
                             un7z2.StartInfo.CreateNoWindow = true;
                             un7z2.Start();
                             un7z2.WaitForExit();
-                            //MessageBox.Show(un7z.StandardOutput.ReadToEnd());
+
                             MessageBox.Show("Actualización completada. Abra la aplicación de nuevo.", "Actualización", MessageBoxButton.OK, MessageBoxImage.Information);
                             df.Close();
                         }
@@ -165,30 +123,9 @@ namespace PistachoStudiosLauncherWPF
                                         FileStream ssfs = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\" + json.game.uuid + ".7z", FileMode.OpenOrCreate);
                                         ssfs.SetLength(0);
                                         ssfs.Flush();
-                                        //streamtask = httpclient.GetAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
+
                                         var str23 = httpclient.GetStreamAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
-                                        //streamtask.Wait();
-                                        /*if (!streamtask.Result.IsSuccessStatusCode)
-                                        {
-                                            MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                            File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                            df.Close();
-                                            return;
-                                        }
-                                        if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                                        {
-                                            Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                                        }
-                                        else
-                                        {
-                                            if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                            {
-                                                foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                                {
-                                                    File.Delete(file);
-                                                }
-                                            }
-                                        }*/
+
                                         str23.Result.CopyTo(ssfs);
                                         ssfs.Flush();
                                         ssfs.Close();
@@ -200,35 +137,14 @@ namespace PistachoStudiosLauncherWPF
                                         un7z.StartInfo.CreateNoWindow = true;
                                         un7z.Start();
                                         un7z.WaitForExit();
-                                        //MessageBox.Show(un7z.StandardOutput.ReadToEnd());
 
                                         FileStream ssfs2 = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\screenshots.7z", FileMode.OpenOrCreate);
                                         ssfs2.SetLength(0);
                                         ssfs2.Flush();
-                                        //streamtask = httpclient.GetAsync(serverlocation + "/screenshots/screenshots.7z");
+
                                         var str232 = httpclient.GetStreamAsync(serverlocation + "/screenshots/screenshots.7z");
-                                        //streamtask.Wait();
-                                        /*if (!streamtask.Result.IsSuccessStatusCode)
-                                        {
-                                            MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                            File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                            df.Close();
-                                            return;
-                                        }
-                                        if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                                        {
-                                            Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                                        }
-                                        else
-                                        {
-                                            if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                            {
-                                                foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                                {
-                                                    File.Delete(file);
-                                                }
-                                            }
-                                        }*/
+                                        
+
                                         str232.Result.CopyTo(ssfs2);
                                         ssfs2.Flush();
                                         ssfs2.Close();
@@ -267,28 +183,7 @@ namespace PistachoStudiosLauncherWPF
                                 ssfs.Flush();
                                 streamtask = httpclient.GetAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
                                 var str23 = httpclient.GetStreamAsync(serverlocation + "/template/" + json.game.uuid + ".7z");
-                                //streamtask.Wait();
-                                /*if (!streamtask.Result.IsSuccessStatusCode)
-                                {
-                                    MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                    df.Close();
-                                    return;
-                                }
-                                if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                                {
-                                    Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                                }
-                                else
-                                {
-                                    if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                    {
-                                        foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                        {
-                                            File.Delete(file);
-                                        }
-                                    }
-                                }*/
+
                                 str23.Result.CopyTo(ssfs);
                                 ssfs.Flush();
                                 ssfs.Close();
@@ -302,35 +197,13 @@ namespace PistachoStudiosLauncherWPF
                                 un7z.StartInfo.CreateNoWindow = true;
                                 un7z.Start();
                                 un7z.WaitForExit();
-                                //MessageBox.Show(un7z.StandardOutput.ReadToEnd());
 
                                 FileStream ssfs2 = new(Path.GetDirectoryName(Environment.ProcessPath) + "\\web\\screenshots.7z", FileMode.OpenOrCreate);
                                 ssfs2.SetLength(0);
                                 ssfs2.Flush();
-                                //streamtask = httpclient.GetAsync(serverlocation + "/screenshots/screenshots.7z");
+
                                 var str232 = httpclient.GetStreamAsync(serverlocation + "/screenshots/screenshots.7z");
-                                //streamtask.Wait();
-                                /*if (!streamtask.Result.IsSuccessStatusCode)
-                                {
-                                    MessageBox.Show("No se pudo actualizar el launcher." + Environment.NewLine + "Abra la aplicación para intentarlo de nuevo." + Environment.NewLine + "C", "Fallo en la actualización", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    File.Delete(Path.GetDirectoryName(Environment.ProcessPath) + "\\json\\launcher.json");
-                                    df.Close();
-                                    return;
-                                }
-                                if (!Path.Exists(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\")) //if web folder does not exist, create it
-                                {
-                                    Directory.CreateDirectory(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\");
-                                }
-                                else
-                                {
-                                    if (Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\").Length > 0)
-                                    {
-                                        foreach(string file in Directory.GetFiles(Path.GetDirectoryName(Environment.ProcessPath) + "\\game\\"))
-                                        {
-                                            File.Delete(file);
-                                        }
-                                    }
-                                }*/
+
                                 str232.Result.CopyTo(ssfs2);
                                 ssfs2.Flush();
                                 ssfs2.Close();
@@ -342,7 +215,7 @@ namespace PistachoStudiosLauncherWPF
                                 un7z2.StartInfo.CreateNoWindow = true;
                                 un7z2.Start();
                                 un7z2.WaitForExit();
-                                //MessageBox.Show(un7z.StandardOutput.ReadToEnd());
+
                                 MessageBox.Show("Actualización completada. Abra la aplicación de nuevo.", "Actualización", MessageBoxButton.OK, MessageBoxImage.Information);
                                 df.Close();
                                 return;
