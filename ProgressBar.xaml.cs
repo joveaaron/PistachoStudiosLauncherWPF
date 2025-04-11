@@ -2,13 +2,10 @@
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Handlers;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Policy;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.VisualBasic;
-using Microsoft.Win32;
 //using Path = System.IO.Path;
 
 namespace PistachoStudiosLauncherWPF
@@ -18,8 +15,8 @@ namespace PistachoStudiosLauncherWPF
     /// </summary>
     public partial class PBUpdate : Window
     {
-        //public string hosturi = "https://elchehost.es";
-        public string hosturi = "https://magenta-stork.static.domains"; //test server
+        public string hosturi = "https://elchehost.es";
+        //public string hosturi = "https://magenta-stork.static.domains"; //test server
         public string _7zrexe_download_uri = "https://7-zip.org/a/7zr.exe";
         public string _7zrexe_path = AppDomain.CurrentDomain.BaseDirectory + "7z/7zr.exe";
         public string screenshotsdir = AppDomain.CurrentDomain.BaseDirectory + "media/img/";
@@ -32,7 +29,7 @@ namespace PistachoStudiosLauncherWPF
         public string _7zazip_download_uri = "https://github.com/ip7z/7zip/releases/download/24.09/7z2409-extra.7z";
         public string _7zazip_path = AppDomain.CurrentDomain.BaseDirectory + "7z2409-extra.7z";
         public string _7zaexe_path = AppDomain.CurrentDomain.BaseDirectory + "7z/7za.exe";
-        public string prismlauncher_windows_MSVC_portable_9_2zip_download_uri = "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/9.2/PrismLauncher-Windows-MSVC-Portable-9.2.zip";
+        public string prismlauncher_windows_MSVC_portable_9_2zip_download_uri = "https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/9.4/PrismLauncher-Windows-MinGW-w64-Portable-9.4.zip";
 
         public string prismlauncher_cfg = "[General]\r\nConfigVersion=1.2\r\nApplicationTheme=system\r\nIconTheme=pe_colored\r\nLanguage=es\r\nStatusBarVisible=true\r\nToolbarsLocked=false\r\n";
 
