@@ -1,0 +1,22 @@
+﻿<Window x:Class="PistachoStudiosLauncherWPF.PBUpdate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PistachoStudiosLauncherWPF"
+        mc:Ignorable="d"
+        Title="Actualizador" Height="131" Width="488" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ProgressBar IsIndeterminate="True" HorizontalAlignment="Center" Height="28" Margin="0,26,0,0" VerticalAlignment="Top" Width="450" Maximum="1" LargeChange="0.1" SmallChange="0.01" x:Name="progbar"/>
+        <Expander HorizontalAlignment="Center" Height="136" Header="Ver detalles
+                  " Margin="0,63,0,0" VerticalAlignment="Top" Width="450" Collapsed="Expander_Collapsed" Expanded="Expander_Expanded">
+            <Grid Background="#FFFFFFFF" Width="440">
+                <TextBox FontFamily="Cascadia Mono" IsReadOnly="True" x:Name="textbox1" TextWrapping="WrapWithOverflow" Margin="0,10,0,0">
+
+                </TextBox>
+            </Grid>
+        </Expander>
+        <Label HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" VerticalAlignment="Top" Width="374" x:Name="statuslabel" Content="Buscando actualizaciones..."/>
+
+    </Grid>
+</Window>

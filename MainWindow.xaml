@@ -17,12 +17,12 @@
             <Rectangle Grid.Row="1" HorizontalAlignment="Center" Height="27" Margin="0,0,0,0" Fill="#3FFFFFFF" VerticalAlignment="Bottom" Width="800"/>
             <Label Grid.Row="1" x:Name="gamelabel" Content="Juego actual: " HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="Black"/>
             <Image Grid.Row="0" Margin="10,10,439,0" VerticalAlignment="Top" Source="media\ui\0.png" StretchDirection="DownOnly"/>
-            <Button Grid.Row="0" HorizontalAlignment="Right" Height="48" Margin="0,10,10,0" VerticalAlignment="Top" Width="79" Click="Button_Click_1">
+            <Button Grid.Row="0" HorizontalAlignment="Right" Height="48" Margin="0,10,10,0" VerticalAlignment="Top" Width="102" Click="Button_Click_1">
                 <TextBlock TextAlignment="Center">
-                    Configuración<LineBreak/>inicial
+                    Cambiar nombre<LineBreak/>de usuario
                 </TextBlock>
             </Button>
-            <Button x:Name="playbtn" Margin="10,156,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="176">Jugar a Squirt Games 2</Button>
+            <Button x:Name="playbtn" Margin="10,156,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="176" Click="playbtn_Click">Jugar a</Button>
             <CheckBox x:Name="bkgcyclecheckbox" Grid.Row="0" HorizontalAlignment="Left" Height="34" Margin="711,63,0,0" VerticalAlignment="Top" Width="79" Foreground="White" Click="CheckBox_Checked">
                 <TextBlock TextWrapping="Wrap">
                     Ciclar fondo

@@ -1,10 +1,14 @@
-﻿using System.Drawing.Imaging;
+﻿using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Microsoft.VisualBasic;
+using PistachoStudiosLauncherWPF.JsonClasses;
 
 namespace PistachoStudiosLauncherWPF
 {
@@ -17,6 +21,12 @@ namespace PistachoStudiosLauncherWPF
         DispatcherTimer nextphoto = new(DispatcherPriority.Render);
         List<string> imagefilenames = [];
         int totransitionimage = 0;
+
+        public string launcherjson_path = AppDomain.CurrentDomain.BaseDirectory + "launcher.json";
+        public string prismlauncher_accountsjson_path = AppDomain.CurrentDomain.BaseDirectory + "prism/accounts.json";
+
+        LauncherJson? ljson = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,13 +34,22 @@ namespace PistachoStudiosLauncherWPF
             fadetimer.Tick += fadeTimer_Tick;
             nextphoto.Interval = new(0, 0, 20);
             nextphoto.Tick += Nextphoto_Tick;
+            ljson = JsonSerializer.Deserialize<LauncherJson>(File.ReadAllText(launcherjson_path));
+            if(ljson != null)
+            {
+                gamelabel.Content = "InstanceID: " + ljson.game.instanceid;
+                playbtn.Content = "Jugar a " + ljson.game.name + Environment.NewLine + ljson.game.version;
+            } else
+            {
+                ljson = new();
+                Application.Current.Shutdown();
+            }
         }
 
         private void Nextphoto_Tick(object? sender, EventArgs e)
         {
             fadetimer.Start();
         }
-
         private void fadeTimer_Tick(object? sender, EventArgs e)
         {
             if(frntimage.Opacity > 0)
@@ -51,12 +70,6 @@ namespace PistachoStudiosLauncherWPF
                 backimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[totransitionimage]), ImageFormat.Png);
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e) //photo button
-        {
-            fadetimer.Start();
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             bkgcyclecheckbox.IsChecked = true;
@@ -80,65 +93,36 @@ namespace PistachoStudiosLauncherWPF
             totransitionimage = 1;
             backimage.Source = Utils.ToImageSource(System.Drawing.Image.FromFile(imagefilenames[1]), ImageFormat.Png);
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e) //config button
-        {
-            
-        }
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if(bkgcyclecheckbox.IsChecked == true)
+            if (bkgcyclecheckbox.IsChecked == true)
             {
                 nextphoto.Start();
-            } else
+            }
+            else
             {
                 nextphoto.Stop();
             }
         }
-        public void updateLabelStatusBar(string game, string username)
-        {
-            
-        }
-    }
-    public static class Utils
-    {
-        public static ImageSource ToImageSource(System.Drawing.Image image, ImageFormat imageFormat)
-        {
-            BitmapImage bitmap = new BitmapImage();
 
-            using (MemoryStream stream = new MemoryStream())
+        private void Button_Click_1(object sender, RoutedEventArgs e) //config button
+        {
+            string result = Interaction.InputBox("Presiona cancelar para mantener el anterior.", "Cambiar nombre de usuario", "usuario_epico");
+            if(result != string.Empty && result != "")
             {
-                // Save to the stream
-                image.Save(stream, imageFormat);
-
-                // Rewind the stream
-                stream.Seek(0, SeekOrigin.Begin);
-
-                // Tell the WPF BitmapImage to use this stream
-                bitmap.BeginInit();
-                bitmap.StreamSource = stream;
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-            }
-
-            return bitmap;
-        }
-
-        private static Random rng = new Random();
-
-        public static void Shuffle<T>(this IList<T> list)
-        {
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                File.WriteAllText(prismlauncher_accountsjson_path, AccountsJsonHelper.UsernameToAccountsJson(result));
             }
         }
+        private void playbtn_Click(object sender, RoutedEventArgs e)
+        {
+            Process proc = new();
+            proc.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "prism/prismlauncher.exe";
+            proc.StartInfo.Arguments = "-l " + ljson.game.instanceid; //warning can be safely ignored.
+            proc.StartInfo.UseShellExecute = true;
+            proc.Start();
+            Cursor = Cursors.Wait;
+            Thread.Sleep(5000);
+            Application.Current.Shutdown();
+        }
     }
-
 }

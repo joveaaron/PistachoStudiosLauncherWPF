@@ -14,6 +14,6 @@ namespace PistachoStudiosLauncherWPF
     /// </summary>
     public partial class App : Application
     {
-
+        
     }
 }

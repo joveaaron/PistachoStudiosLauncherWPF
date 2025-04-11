@@ -7,6 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
+    <Content Include="ico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
