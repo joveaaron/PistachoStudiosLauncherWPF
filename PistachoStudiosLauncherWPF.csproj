@@ -38,9 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="7z\7zr.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="media\img\img.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
