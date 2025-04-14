@@ -274,6 +274,7 @@ namespace PistachoStudiosLauncherWPF
                     var local_launcherjson = JsonSerializer.Deserialize<JsonClasses.LauncherJson>(fs);
                     if (local_launcherjson != null) //if parsing of local launcher.json was successful
                     {
+                        progbar.IsIndeterminate = false;
                         PrintTextBox("GET " + hosturi + "/launcher.json" + "... ");
                         using (Stream? stream = await httpHelper.GetStreamIfSuccessAsync(hosturi + "/launcher.json"))
                         {
@@ -326,6 +327,7 @@ namespace PistachoStudiosLauncherWPF
                                         }
                                         if (local_launcherjson.screenshots.issuetimestamp != server_launcherjson.screenshots.issuetimestamp)
                                         {
+                                            progbar.IsIndeterminate = false;
                                             statuslabel.Content = "Actualizando capturas...";
                                             PrintTextBox("GET " + server_launcherjson.screenshots.uri + "... ");
                                             using (Stream? screenshotstream = await httpHelper.GetStreamIfSuccessAsync(server_launcherjson.screenshots.uri))

@@ -25,6 +25,8 @@ namespace PistachoStudiosLauncherWPF
         public string launcherjson_path = AppDomain.CurrentDomain.BaseDirectory + "launcher.json";
         public string prismlauncher_accountsjson_path = AppDomain.CurrentDomain.BaseDirectory + "prism/accounts.json";
 
+        public string mcserver = "mc.elchehost.es";
+
         LauncherJson? ljson = new();
 
         public MainWindow()
@@ -107,7 +109,7 @@ namespace PistachoStudiosLauncherWPF
 
         private void Button_Click_1(object sender, RoutedEventArgs e) //config button
         {
-            string result = Interaction.InputBox("Presiona cancelar para mantener el anterior.", "Cambiar nombre de usuario", "usuario_epico");
+            string result = Interaction.InputBox("Presiona cancelar para mantener el anterior.", "Cambiar nombre de usuario");
             if(result != string.Empty && result != "")
             {
                 File.WriteAllText(prismlauncher_accountsjson_path, AccountsJsonHelper.UsernameToAccountsJson(result));
@@ -117,12 +119,19 @@ namespace PistachoStudiosLauncherWPF
         {
             Process proc = new();
             proc.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "prism/prismlauncher.exe";
-            proc.StartInfo.Arguments = "-l " + ljson.game.instanceid; //warning can be safely ignored.
+            proc.StartInfo.Arguments = "-l " + ljson.game.instanceid + " -s " + mcserver; //warning can be safely ignored.
             proc.StartInfo.UseShellExecute = true;
             proc.Start();
             Cursor = Cursors.Wait;
             Thread.Sleep(5000);
             Application.Current.Shutdown();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            fadetimer.Start();
+            nextphoto.Stop();
+            nextphoto.Start();
         }
     }
 }

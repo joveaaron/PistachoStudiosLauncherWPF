@@ -22,8 +22,9 @@
                     Cambiar nombre<LineBreak/>de usuario
                 </TextBlock>
             </Button>
+            <Button Content="Saltar foto" HorizontalAlignment="Left" Height="35" Margin="688,70,0,0" VerticalAlignment="Top" Width="82" Click="Button_Click"/>
             <Button x:Name="playbtn" Margin="10,156,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="176" Click="playbtn_Click">Jugar a</Button>
-            <CheckBox x:Name="bkgcyclecheckbox" Grid.Row="0" HorizontalAlignment="Left" Height="34" Margin="711,63,0,0" VerticalAlignment="Top" Width="79" Foreground="White" Click="CheckBox_Checked">
+            <CheckBox x:Name="bkgcyclecheckbox" Grid.Row="0" HorizontalAlignment="Left" Height="34" Margin="688,109,0,0" VerticalAlignment="Top" Width="79" Foreground="White" Click="CheckBox_Checked">
                 <TextBlock TextWrapping="Wrap">
                     Ciclar fondo
                 </TextBlock>
